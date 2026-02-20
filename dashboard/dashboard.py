@@ -19,7 +19,10 @@ st.markdown("---")
 #Load Data
 @st.cache_data
 def load_data():
-    df = pd.read_csv('main_data.csv')
+    import os
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(current_dir, 'main_data.csv')
+    df = pd.read_csv(csv_path)
     df['datetime'] = pd.to_datetime(df['datetime'])
     return df
 
@@ -241,4 +244,5 @@ except FileNotFoundError:
     st.error(" File 'main_data.csv' tidak ditemukan!")
     st.info("Pastikan file data sudah tersedia di folder yang sama dengan dashboard.py")
 except Exception as e:
+
     st.error(f"Terjadi kesalahan: {str(e)}")
